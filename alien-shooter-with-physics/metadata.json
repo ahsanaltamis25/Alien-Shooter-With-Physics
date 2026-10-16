@@ -1,0 +1,6 @@
+{
+  "name": "Alien Shooter With Physics",
+  "description": "An educational 2D action game teaching physics concepts through alien combat with student profiles and progress tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

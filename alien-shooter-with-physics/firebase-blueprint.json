@@ -1,0 +1,146 @@
+{
+  "entities": {
+    "StudentProfile": {
+      "title": "StudentProfile",
+      "description": "Student user profile containing display name, grade level, and overall physics stats.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Unique Firebase user ID matching request.auth.uid"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Name or callsign of the student player",
+          "maxLength": 60
+        },
+        "gradeLevel": {
+          "type": "string",
+          "description": "Grade level or physics difficulty tier (e.g. Middle School, High School, AP Physics)",
+          "maxLength": 40
+        },
+        "avatar": {
+          "type": "string",
+          "description": "Chosen retro avatar icon identifier",
+          "maxLength": 30
+        },
+        "highScore": {
+          "type": "number",
+          "description": "All-time highest game score achieved"
+        },
+        "questionsCorrect": {
+          "type": "number",
+          "description": "Total physics questions successfully solved"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last profile update"
+        }
+      },
+      "required": ["uid", "displayName"]
+    },
+    "GameSave": {
+      "title": "GameSave",
+      "description": "Saved game state containing level, health, score, ammo, and stats.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase user ID of the student"
+        },
+        "level": {
+          "type": "number",
+          "description": "Current wave or level number"
+        },
+        "score": {
+          "type": "number",
+          "description": "Current cumulative score"
+        },
+        "health": {
+          "type": "number",
+          "description": "Player health points"
+        },
+        "maxHealth": {
+          "type": "number",
+          "description": "Maximum player health points"
+        },
+        "ammo": {
+          "type": "number",
+          "description": "Charged plasma shots remaining"
+        },
+        "aliensDefeated": {
+          "type": "number",
+          "description": "Total aliens neutralized in this run"
+        },
+        "questionsAnswered": {
+          "type": "number",
+          "description": "Total physics challenges answered"
+        },
+        "savedAt": {
+          "type": "string",
+          "description": "ISO timestamp when the game was saved"
+        }
+      },
+      "required": ["uid", "level", "score", "health"]
+    },
+    "LeaderboardEntry": {
+      "title": "LeaderboardEntry",
+      "description": "Public leaderboard record displaying high scores and physics challenges solved.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Student user ID"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Callsign of the student",
+          "maxLength": 60
+        },
+        "avatar": {
+          "type": "string",
+          "description": "Avatar identifier",
+          "maxLength": 30
+        },
+        "gradeLevel": {
+          "type": "string",
+          "description": "Grade level",
+          "maxLength": 40
+        },
+        "highScore": {
+          "type": "number",
+          "description": "Highest score recorded"
+        },
+        "questionsCorrect": {
+          "type": "number",
+          "description": "Total physics questions solved"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of leaderboard submission"
+        }
+      },
+      "required": ["uid", "displayName", "highScore"]
+    }
+  },
+  "firestore": {
+    "/students/{studentId}": {
+      "schema": {
+        "$ref": "#/entities/StudentProfile"
+      },
+      "description": "Collection of student player profiles indexed by auth UID"
+    },
+    "/saves/{studentId}": {
+      "schema": {
+        "$ref": "#/entities/GameSave"
+      },
+      "description": "Saved game runs for each student indexed by auth UID"
+    },
+    "/leaderboard/{entryId}": {
+      "schema": {
+        "$ref": "#/entities/LeaderboardEntry"
+      },
+      "description": "Public galactic leaderboard entries indexed by student UID"
+    }
+  }
+}
